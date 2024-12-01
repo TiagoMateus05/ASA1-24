@@ -8,27 +8,13 @@ Information::Information(int numInteiros, int tamanhoSequencia){
 	for (int i = 0; i < tamanhoSequencia;i++)
 		std::cin >> _sequencia[i];
 	std::cin >> _resultado;
+	criarMatrizResultados();
 }
 
 Information::~Information(){
 	destruirMatrizOperacao();
+	destruirMatrizResultados();
 	delete[] _sequencia;
-}
-
-void Information::setNumInteiros(const int num){
-	_numInteiros = num;
-}
-
-void Information::setTamanhoSequencia(const int num){
-	_tamanhoSequencia = num;
-}
-
-int Information::getNumInteiros() const{
-	return _numInteiros;
-}
-
-int Information::getTamanhoSequencia() const{
-	return _tamanhoSequencia;
 }
 
 void Information::criarMatrizOperacao(){
@@ -46,6 +32,13 @@ void Information::destruirMatrizOperacao(){
 		delete[] _matrizOperacao[i];
 	}
 	delete[] _matrizOperacao;
+}
+
+void Information::destruirMatrizResultados(){
+	for (int i = 0; i < _numInteiros; i++){
+		delete[] _matrizResultados[i];
+	}
+	delete[] _matrizResultados;	
 }
 
 void Information::printInfo(){
@@ -68,4 +61,33 @@ void Information::printInfo(){
 
 	//Imprime resultado
 	std::cout << _resultado << std::endl;
+
+	//Imprime matriz resultados
+	std::cout << std::endl << std::endl << "Matriz resultados:" << std::endl;
+	for (int i = 0; i < _tamanhoSequencia; i++){
+		for (int a = 0; a < _tamanhoSequencia; a++){
+			std::cout << _matrizResultados[i][a] << " ";
+		}
+		std::cout << std::endl;
+	}	
+}
+
+void Information::calcularValorCelula(){
+	// Função recursiva que calcula os valores possíveis de cada
+	// célula com base nos outros valores já presentes na tabela.
+}
+
+void Information::criarMatrizResultados(){
+	_matrizResultados = new int*[_tamanhoSequencia];
+	for (int i = 0; i < _tamanhoSequencia; i++){
+		_matrizResultados[i] = new int[_tamanhoSequencia];
+		_matrizResultados[i][i] = _sequencia[i];
+	}
+	for (int i = 0; i < _tamanhoSequencia; i++){
+		for (int a = 1; a < _tamanhoSequencia; a++){
+			_matrizResultados[i][a] = 0;
+			calcularValorCelula();
+		}
+	}
+
 }
