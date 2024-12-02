@@ -1,4 +1,28 @@
+#include <iostream>
+#include <iostream>
+#include <fstream>
+#include <string>
 #include "Information.hpp"
+
+class Information{
+	private:
+		int _numInteiros;
+		int _tamanhoSequencia;
+		int **_matrizOperacao;
+		int **_matrizResultados;
+		int *_sequencia;
+		int _resultado;
+		void criarMatrizOperacao();
+		void destruirMatrizOperacao();
+		void destruirMatrizResultados();
+		void calcularValorCelula();
+
+	public:
+		Information(int numInteiros, int tamanhoSequencia);
+		~Information();
+		void printInfo();
+		void criarMatrizResultados();
+};
 
 Information::Information(int numInteiros, int tamanhoSequencia){
 	_numInteiros = numInteiros;
@@ -82,12 +106,37 @@ void Information::criarMatrizResultados(){
 	for (int i = 0; i < _tamanhoSequencia; i++){
 		_matrizResultados[i] = new int[_tamanhoSequencia];
 		_matrizResultados[i][i] = _sequencia[i];
+		std::cout << "i: " << i << std::endl << "sequencia[i]: " << _sequencia[i] << std::endl;
 	}
 	for (int i = 0; i < _tamanhoSequencia; i++){
-		for (int a = 1; a < _tamanhoSequencia; a++){
+		for (int a = i + 1; a < _tamanhoSequencia; a++){
 			_matrizResultados[i][a] = 0;
 			calcularValorCelula();
 		}
 	}
 
+}
+
+int main(){
+	//Disables sync between c++ standard streams and c standard
+	// streams. It makes operations faster, but after this, c and 
+	// c++ streams shouldnt be mixed, because they are not synced
+	// and the output might appear in an unexpected order.
+	std::ios::sync_with_stdio(0);
+
+	//By default, std::cin is tied to std::cout, so before any
+	// std::cin operation, std::cout is flushed. This disables that.
+	// It avoids unnecessary flushing, improving performance, but
+	// makes it so that the output should be manually flushed when
+	// we want to make sure it outputs.
+	std::cin.tie(0);
+
+
+	int numInteiros;
+	std::cin >> numInteiros;
+	int tamanhoSequencia;
+	std::cin >> tamanhoSequencia;
+
+	Information info (numInteiros, tamanhoSequencia);
+	info.printInfo();
 }
