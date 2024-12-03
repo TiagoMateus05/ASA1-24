@@ -5,8 +5,9 @@
 #include <sstream>
 #include <vector>
 #include <math.h>
+#include <array>
 
-#include <chrono>
+//#include <chrono>
 
 //[res_val, x, val1, val2]
 const int INFO_ARRAY = 4;
@@ -27,7 +28,7 @@ class Information{
 		Information(int numInteiros, int tamanhoSequencia);
 		//void printInfo();
 		void criarMatrizResultados();
-		void printSolução();
+		void printSolucao();
 		std::string constroiParenteses(int x, int y, int val);
 		bool isNumberInList(int x, int y, int num);
 };
@@ -55,9 +56,9 @@ bool Information::isNumberInList(int x, int y, int num) {
 }
 
 void Information::criarMatrizOperacao(){
-	_matrizOperacao.resize(_tamanhoSequencia);
+	_matrizOperacao.resize(_numInteiros);
 	for (int i = 0; i < _numInteiros; i++){
-		_matrizOperacao[i].resize(_tamanhoSequencia);
+		_matrizOperacao[i].resize(_numInteiros);
 		for (int a = 0; a < _numInteiros; a++){
 			std::cin >> _matrizOperacao[i][a];
 		}
@@ -85,7 +86,7 @@ void Information::calcularValorCelulas(){
 							continue;
 						}
 
-						if (_matrizResultados[a][a+i].size() == _numInteiros) {
+						if ((int)_matrizResultados[a][a+i].size() == _numInteiros) {
 							breakOuterLoop = true;
 							break;
 						}
@@ -105,18 +106,19 @@ void Information::criarMatrizResultados(){
 		_matrizResultados[i].resize(_tamanhoSequencia);
 		_matrizResultados[i][i].push_back({ _sequencia[i], -1, -1, -1});
 	}
-	auto start = std::chrono::high_resolution_clock::now();
-	std::cout << "Start: " << std::endl;
+	//auto start = std::chrono::high_resolution_clock::now();
+	//std::cout << "Start: " << std::endl;
 	calcularValorCelulas();
-	printSolução();
-	auto end = std::chrono::high_resolution_clock::now();
-    auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
+	printSolucao();
+	//auto end = std::chrono::high_resolution_clock::now();
+    //auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
 
-    std::cout << "Time taken: " << duration.count() << " milliseconds" << std::endl;
+    //std::cout << "Time taken: " << duration.count() << " milliseconds" << std::endl;
 }
 
 std::string Information::constroiParenteses(int x, int y, int val) {
     std::stringstream ss;
+	bool resultFound = false;
 	int list_size = _matrizResultados[x][y].size();
 	if (x == y){
 		ss << val;
@@ -125,6 +127,7 @@ std::string Information::constroiParenteses(int x, int y, int val) {
 
 	for (int i = 0; i < list_size; i++) {
 		if (val == _matrizResultados[x][y][i][0]) {
+			resultFound = true;
 			ss << "(" << constroiParenteses(
 				x,
 				_matrizResultados[x][y][i][1],
@@ -137,10 +140,13 @@ std::string Information::constroiParenteses(int x, int y, int val) {
 			break;
 		}
 	}
-	return ss.str();
+	if (resultFound)
+		return ss.str();
+	else
+		return std::to_string(0);
 }
 
-void Information::printSolução(){
+void Information::printSolucao(){
 	std::cout << _resultado << std::endl;
 	std::cout << constroiParenteses(0, _tamanhoSequencia - 1, _resultado) << std::endl;
 }
