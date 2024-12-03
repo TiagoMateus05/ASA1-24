@@ -1,11 +1,7 @@
 #include <iostream>
-#include <iostream>
-#include <fstream>
-#include <string>
 #include <sstream>
 #include <vector>
-#include <math.h>
-#include <array>
+#include <unordered_set>
 
 //#include <chrono>
 
@@ -32,8 +28,6 @@ class Information{
 		std::string constroiParenteses(int x, int y, int val);
 		bool isNumberInList(int x, int y, int num);
 };
-
-
 
 Information::Information(int numInteiros, int tamanhoSequencia){
 	_numInteiros = numInteiros;
@@ -65,40 +59,42 @@ void Information::criarMatrizOperacao(){
 	}
 }
 
-void Information::calcularValorCelulas(){
-	//[res_val, x, val1, val2]
-	for(int i = 1; i < _tamanhoSequencia; i++){
-		for (int a = 0; (a + i) < _tamanhoSequencia; a++){
-			_matrizResultados[a][a+i].resize(0);
-			//(a, a+i)
-			for (int j = a + i - 1; j >= a; --j) {
-				int size_u = _matrizResultados[a][j].size();
-				int size_v = _matrizResultados[j+1][a+i].size();
-				bool breakOuterLoop = false;
-				for(int u = 0; u < size_u; u++ ) {
-					for (int v = 0; v < size_v; v++) {
-						int v1 = _matrizResultados[a][j][u][0];
-						int v2 = _matrizResultados[j+1][a+i][v][0];
-						int res = _matrizOperacao[v1 - 1][v2 - 1];
-						//std::cout << "(" << a << "," << j << ") & (" << j+1 << "," << a+i << ")" << std::endl;
-						if (isNumberInList(a, a+i, res)) {
-							breakOuterLoop = true;
-							continue;
-						}
+void Information::calcularValorCelulas() {
+    for (int i = 1; i < _tamanhoSequencia; i++) {
+        for (int a = 0; (a + i) < _tamanhoSequencia; a++) {
+            auto& currentCell = _matrizResultados[a][a + i];
+            currentCell.clear();
+            currentCell.reserve(_numInteiros);
 
-						if ((int)_matrizResultados[a][a+i].size() == _numInteiros) {
-							breakOuterLoop = true;
-							break;
-						}
-						_matrizResultados[a][a+i].push_back({res, j, v1, v2});
-					}
-					if (breakOuterLoop)
-						break;
-				}
-			}
-		}
-	}
+            std::unordered_set<int> resultsSet;
+            bool reachedLimit = false;
+
+            for (int j = a + i - 1; j >= a && !reachedLimit; --j) {
+                const auto& leftCell = _matrizResultados[a][j];
+                const auto& rightCell = _matrizResultados[j + 1][a + i];
+
+                for (const auto& leftValue : leftCell) {
+                    for (const auto& rightValue : rightCell) {
+                        int v1 = leftValue[0];
+                        int v2 = rightValue[0];
+                        int res = _matrizOperacao[v1 - 1][v2 - 1];
+
+                        if (resultsSet.insert(res).second) { // Insert only if unique
+                            currentCell.push_back({ res, j, v1, v2 });
+
+                            if ((int)currentCell.size() == _numInteiros) {
+                                reachedLimit = true;
+                                break;
+                            }
+                        }
+                    }
+                    if (reachedLimit) break;
+                }
+            }
+        }
+    }
 }
+
 
 void Information::criarMatrizResultados(){
 	_matrizResultados.resize(_tamanhoSequencia);
@@ -109,18 +105,28 @@ void Information::criarMatrizResultados(){
 	//auto start = std::chrono::high_resolution_clock::now();
 	//std::cout << "Start: " << std::endl;
 	calcularValorCelulas();
-	printSolucao();
-	//auto end = std::chrono::high_resolution_clock::now();
-    //auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
+	/*auto end1 = std::chrono::high_resolution_clock::now();
+    auto duration1 = std::chrono::duration_cast<std::chrono::milliseconds>(end1 - start);
+	std::cout << "Time taken to Calculate: " << duration1.count() << " milliseconds" << std::endl;
 
-    //std::cout << "Time taken: " << duration.count() << " milliseconds" << std::endl;
+	auto start1 = std::chrono::high_resolution_clock::now();*/
+	printSolucao();
+	/*auto end2 = std::chrono::high_resolution_clock::now();
+    auto duration2 = std::chrono::duration_cast<std::chrono::milliseconds>(end2 - start1);
+	std::cout << "Time taken to Resolve: " << duration2.count() << " milliseconds" << std::endl;
+
+	auto end = std::chrono::high_resolution_clock::now();
+    auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
+
+    std::cout << "Time taken: " << duration.count() << " milliseconds" << std::endl;*/
 }
 
 std::string Information::constroiParenteses(int x, int y, int val) {
     std::stringstream ss;
 	bool resultFound = false;
 	int list_size = _matrizResultados[x][y].size();
-	if (x == y){
+
+	if (x == y && val == _matrizResultados[x][y][0][0]){
 		ss << val;
 		return ss.str();
 	}
@@ -147,8 +153,9 @@ std::string Information::constroiParenteses(int x, int y, int val) {
 }
 
 void Information::printSolucao(){
-	std::cout << _resultado << std::endl;
-	std::cout << constroiParenteses(0, _tamanhoSequencia - 1, _resultado) << std::endl;
+	std::string tmp = constroiParenteses(0, _tamanhoSequencia - 1, _resultado);
+	std::string res = (tmp == "0" ? "0" : "1\n" + tmp );
+	std::cout << res << std::endl;
 }
 
 int main(){

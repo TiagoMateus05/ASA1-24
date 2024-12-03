@@ -55,6 +55,7 @@
         "complex": "cpp",
         "memory": "cpp",
         "forward_list": "cpp",
-        "sstream": "cpp"
+        "sstream": "cpp",
+        "unordered_set": "cpp"
     }
 }
