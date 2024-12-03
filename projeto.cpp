@@ -2,6 +2,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <sstream>
 #include <vector>
 #include <math.h>
 
@@ -26,7 +27,12 @@ class Information{
 		Information(int numInteiros, int tamanhoSequencia);
 		//void printInfo();
 		void criarMatrizResultados();
+		void printSolução();
+		std::string constroiParenteses(int x, int y, int val);
+		bool isNumberInList(int x, int y, int num);
 };
+
+
 
 Information::Information(int numInteiros, int tamanhoSequencia){
 	_numInteiros = numInteiros;
@@ -37,6 +43,15 @@ Information::Information(int numInteiros, int tamanhoSequencia){
 		std::cin >> _sequencia[i];
 	std::cin >> _resultado;
 	criarMatrizResultados();
+}
+
+bool Information::isNumberInList(int x, int y, int num) {
+	int list_size = _matrizResultados[x][y].size();
+	for (int i = 0; i < list_size; i++) {
+		if (num == _matrizResultados[x][y][i][0])
+			return true;
+	}
+	return false;
 }
 
 void Information::criarMatrizOperacao(){
@@ -50,23 +65,35 @@ void Information::criarMatrizOperacao(){
 }
 
 void Information::calcularValorCelulas(){
-	
 	//[res_val, x, val1, val2]
 	for(int i = 1; i < _tamanhoSequencia; i++){
 		for (int a = 0; (a + i) < _tamanhoSequencia; a++){
 			_matrizResultados[a][a+i].resize(0);
 			//(a, a+i)
-			for (int j = 0; a + j < a + i; j++) {
-				int size_u = _matrizResultados[a][a+j].size();
-				int size_v = _matrizResultados[a+j+1][a+i].size();
+			for (int j = a + i - 1; j >= a; --j) {
+				int size_u = _matrizResultados[a][j].size();
+				int size_v = _matrizResultados[j+1][a+i].size();
+				bool breakOuterLoop = false;
 				for(int u = 0; u < size_u; u++ ) {
 					for (int v = 0; v < size_v; v++) {
-						int v1 = _matrizResultados[a][a+j][u][0];
-						int v2 = _matrizResultados[a+j+1][a+i][v][0];
-						_matrizResultados[a][a+i].push_back({_matrizOperacao[v1 - 1][v2 - 1], j, v1, v2});
+						int v1 = _matrizResultados[a][j][u][0];
+						int v2 = _matrizResultados[j+1][a+i][v][0];
+						int res = _matrizOperacao[v1 - 1][v2 - 1];
+						//std::cout << "(" << a << "," << j << ") & (" << j+1 << "," << a+i << ")" << std::endl;
+						if (isNumberInList(a, a+i, res)) {
+							breakOuterLoop = true;
+							continue;
+						}
+
+						if (_matrizResultados[a][a+i].size() == _numInteiros) {
+							breakOuterLoop = true;
+							break;
+						}
+						_matrizResultados[a][a+i].push_back({res, j, v1, v2});
 					}
+					if (breakOuterLoop)
+						break;
 				}
-				
 			}
 		}
 	}
@@ -81,10 +108,41 @@ void Information::criarMatrizResultados(){
 	auto start = std::chrono::high_resolution_clock::now();
 	std::cout << "Start: " << std::endl;
 	calcularValorCelulas();
+	printSolução();
 	auto end = std::chrono::high_resolution_clock::now();
     auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
 
     std::cout << "Time taken: " << duration.count() << " milliseconds" << std::endl;
+}
+
+std::string Information::constroiParenteses(int x, int y, int val) {
+    std::stringstream ss;
+	int list_size = _matrizResultados[x][y].size();
+	if (x == y){
+		ss << val;
+		return ss.str();
+	}
+
+	for (int i = 0; i < list_size; i++) {
+		if (val == _matrizResultados[x][y][i][0]) {
+			ss << "(" << constroiParenteses(
+				x,
+				_matrizResultados[x][y][i][1],
+				_matrizResultados[x][y][i][2]
+			) << " " << constroiParenteses(
+				_matrizResultados[x][y][i][1] + 1,
+				y,
+				_matrizResultados[x][y][i][3]
+			) << ")";
+			break;
+		}
+	}
+	return ss.str();
+}
+
+void Information::printSolução(){
+	std::cout << _resultado << std::endl;
+	std::cout << constroiParenteses(0, _tamanhoSequencia - 1, _resultado) << std::endl;
 }
 
 int main(){
