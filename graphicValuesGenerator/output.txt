@@ -1,0 +1,300 @@
+Input file: input_1:
+Value n: 2
+Value m: 119
+Complexity Value: O(6740636)
+Time taken: 2 milliseconds
+
+Input file: input_2:
+Value n: 3
+Value m: 119
+Complexity Value: O(15166431)
+Time taken: 1 milliseconds
+
+Input file: input_3:
+Value n: 6
+Value m: 139
+Complexity Value: O(96682284)
+Time taken: 5 milliseconds
+
+Input file: input_4:
+Value n: 4
+Value m: 142
+Complexity Value: O(45812608)
+Time taken: 14 milliseconds
+
+Input file: input_5:
+Value n: 10
+Value m: 169
+Complexity Value: O(482680900)
+Time taken: 13 milliseconds
+
+Input file: input_6:
+Value n: 5
+Value m: 152
+Complexity Value: O(87795200)
+Time taken: 4 milliseconds
+
+Input file: input_7:
+Value n: 4
+Value m: 129
+Complexity Value: O(34347024)
+Time taken: 11 milliseconds
+
+Input file: input_8:
+Value n: 6
+Value m: 252
+Complexity Value: O(576108288)
+Time taken: 19 milliseconds
+
+Input file: input_9:
+Value n: 17
+Value m: 272
+Complexity Value: O(5815734272)
+Time taken: 58 milliseconds
+
+Input file: input_10:
+Value n: 17
+Value m: 155
+Complexity Value: O(1076199875)
+Time taken: 20 milliseconds
+
+Input file: input_11:
+Value n: 7
+Value m: 294
+Complexity Value: O(1245197016)
+Time taken: 33 milliseconds
+
+Input file: input_12:
+Value n: 19
+Value m: 308
+Complexity Value: O(10547738432)
+Time taken: 94 milliseconds
+
+Input file: input_13:
+Value n: 16
+Value m: 302
+Complexity Value: O(7051163648)
+Time taken: 81 milliseconds
+
+Input file: input_14:
+Value n: 20
+Value m: 230
+Complexity Value: O(4866800000)
+Time taken: 54 milliseconds
+
+Input file: input_15:
+Value n: 28
+Value m: 253
+Complexity Value: O(12696313168)
+Time taken: 99 milliseconds
+
+Input file: input_16:
+Value n: 4
+Value m: 300
+Complexity Value: O(432000000)
+Time taken: 148 milliseconds
+
+Input file: input_17:
+Value n: 6
+Value m: 384
+Complexity Value: O(2038431744)
+Time taken: 54 milliseconds
+
+Input file: input_18:
+Value n: 11
+Value m: 156
+Complexity Value: O(459366336)
+Time taken: 11 milliseconds
+
+Input file: input_19:
+Value n: 2
+Value m: 341
+Complexity Value: O(158607284)
+Time taken: 54 milliseconds
+
+Input file: input_20:
+Value n: 21
+Value m: 171
+Complexity Value: O(2205093051)
+Time taken: 30 milliseconds
+
+Input file: input_21:
+Value n: 16
+Value m: 176
+Complexity Value: O(1395654656)
+Time taken: 25 milliseconds
+
+Input file: input_22:
+Value n: 17
+Value m: 408
+Complexity Value: O(19628103168)
+Time taken: 151 milliseconds
+
+Input file: input_23:
+Value n: 35
+Value m: 191
+Complexity Value: O(8535641975)
+Time taken: 65 milliseconds
+
+Input file: input_24:
+Value n: 33
+Value m: 337
+Complexity Value: O(41679028017)
+Time taken: 200 milliseconds
+
+Input file: input_25:
+Value n: 17
+Value m: 327
+Complexity Value: O(10105111287)
+Time taken: 94 milliseconds
+
+Input file: input_26:
+Value n: 41
+Value m: 502
+Complexity Value: O(212656599448)
+Time taken: 538 milliseconds
+
+Input file: input_27:
+Value n: 28
+Value m: 171
+Complexity Value: O(3920165424)
+Time taken: 42 milliseconds
+
+Input file: input_28:
+Value n: 51
+Value m: 495
+Complexity Value: O(315468462375)
+Time taken: 688 milliseconds
+
+Input file: input_29:
+Value n: 35
+Value m: 352
+Complexity Value: O(53427404800)
+Time taken: 231 milliseconds
+
+Input file: input_30:
+Value n: 38
+Value m: 680
+Complexity Value: O(454039808000)
+Time taken: 951 milliseconds
+
+Input file: input_31:
+Value n: 33
+Value m: 187
+Complexity Value: O(7121192067)
+Time taken: 60 milliseconds
+
+Input file: input_32:
+Value n: 41
+Value m: 736
+Complexity Value: O(670194958336)
+Time taken: 1257 milliseconds
+
+Input file: input_33:
+Value n: 47
+Value m: 367
+Complexity Value: O(109192776367)
+Time taken: 329 milliseconds
+
+Input file: input_34:
+Value n: 51
+Value m: 413
+Complexity Value: O(183227437197)
+Time taken: 485 milliseconds
+
+Input file: input_35:
+Value n: 4
+Value m: 195
+Complexity Value: O(118638000)
+Time taken: 36 milliseconds
+
+Input file: input_36:
+Value n: 12
+Value m: 431
+Complexity Value: O(11529070704)
+Time taken: 121 milliseconds
+
+Input file: input_37:
+Value n: 12
+Value m: 240
+Complexity Value: O(1990656000)
+Time taken: 35 milliseconds
+
+Input file: input_38:
+Value n: 63
+Value m: 442
+Complexity Value: O(342726674472)
+Time taken: 701 milliseconds
+
+Input file: input_39:
+Value n: 69
+Value m: 457
+Complexity Value: O(454408850673)
+Time taken: 764 milliseconds
+
+Input file: input_40:
+Value n: 20
+Value m: 848
+Complexity Value: O(243920076800)
+Time taken: 769 milliseconds
+
+Input file: input_41:
+Value n: 37
+Value m: 427
+Complexity Value: O(106582787227)
+Time taken: 372 milliseconds
+
+Input file: input_42:
+Value n: 47
+Value m: 522
+Complexity Value: O(314200755432)
+Time taken: 683 milliseconds
+
+Input file: input_43:
+Value n: 42
+Value m: 434
+Complexity Value: O(144200833056)
+Time taken: 406 milliseconds
+
+Input file: input_44:
+Value n: 80
+Value m: 611
+Complexity Value: O(1459834438400)
+Time taken: 1563 milliseconds
+
+Input file: input_45:
+Value n: 28
+Value m: 247
+Complexity Value: O(11814270832)
+Time taken: 89 milliseconds
+
+Input file: input_46:
+Value n: 71
+Value m: 581
+Complexity Value: O(988655745581)
+Time taken: 1263 milliseconds
+
+Input file: input_47:
+Value n: 34
+Value m: 936
+Complexity Value: O(947949889536)
+Time taken: 1700 milliseconds
+
+Input file: input_48:
+Value n: 77
+Value m: 637
+Complexity Value: O(1532497403437)
+Time taken: 1619 milliseconds
+
+Input file: input_49:
+Value n: 95
+Value m: 331
+Complexity Value: O(327288836275)
+Time taken: 502 milliseconds
+
+Input file: input_50:
+Value n: 74
+Value m: 875
+Complexity Value: O(3668492187500)
+Time taken: 3013 milliseconds
+

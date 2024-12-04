@@ -1,8 +1,8 @@
 #!/bin/bash
 
+g++ -std=c++11 -O3 -Wall complexity.cpp -lm -g -o complexity
 # Navigate to the project directory
 cd ..
-
 # Compile the program
 g++ -std=c++11 -O3 -Wall projeto.cpp -lm -g -o projeto
 
@@ -14,9 +14,8 @@ mkdir -p diff
 
 # Loop through all input files
 for input_file in *.in; do
-    # Extract the base name of the file (without extension)
     base_name=$(basename "$input_file" .in)
-
+    ./complexity <"$input_file"
     # Run the program with the input file and capture the output and time
     { time ../projeto < "$input_file" > "${base_name}.temp"; } 2> "${base_name}.time"
 
